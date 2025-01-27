@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boatify</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Add React and Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#search">Search</a></li>
+                <li><a href="#news">News</a></li>
+                <li>
+                    <select id="language-selector">
+                        <option value="en">EN</option>
+                        <option value="hr">HR</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <div class="hero-section">
+            <div class="hero-text">
+                <h1>Boatify</h1>
+                <h2 class="slogan">Set Sail with Boatify</h2>
+                <p class="subtitle">Your Ultimate Boat Rental Destination</p>
+            </div>
+            <img src="sailingBoat.png" alt="Boat illustration" class="hero-image">
+        </div>
+
+        <section class="boats-section">
+            <h2>Available Boats</h2>
+            <div id="root"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>Boatify d.o.o.</p>
+            <p>Croatia</p>
+            <p>Contact: +385 123 456 789</p>
+        </div>
+    </footer>
+
+    <!-- Load your data first -->
+    <script src="boats-data.js"></script>
+
+    <!-- Add the React component inline -->
+    <script type="text/babel">
+        // FilteredBoats Component
+        const FilteredBoats = () => {
+            const [boats, setBoats] = React.useState([]);
+            const [filteredBoats, setFilteredBoats] = React.useState([]);
+            const [filters, setFilters] = React.useState({
+                name: '',
+                location: '',
+                capacity: '',
+                captain: '',
+                priceMin: '',
+                priceMax: '',
+                lengthMin: '',
+                lengthMax: '',
+                model: '',
+                year: ''
+            });
+
+            // Get unique values for select dropdowns
+            const getUniqueValues = (field) => {
+                return [...new Set(boats.map(boat => boat[field]))].sort();
+            };
+
+            React.useEffect(() => {
+                setBoats(boatsData);
+                setFilteredBoats(boatsData);
+            }, []);
+
+            const handleFilterChange = (field, value) => {
+                const newFilters = { ...filters, [field]: value };
+                setFilters(newFilters);
+
+                // Apply all filters
+                let result = boats.filter(boat => {
+                    return (
+                        (!newFilters.name || boat.name.toLowerCase().includes(newFilters.name.toLowerCase())) &&
+                        (!newFilters.location || boat.location === newFilters.location) &&
+                        (!newFilters.capacity || boat.capacity === parseInt(newFilters.capacity)) &&
+                        (!newFilters.captain || boat.captain === newFilters.captain) &&
+                        (!newFilters.priceMin || boat.pricePerDay >= parseInt(newFilters.priceMin)) &&
+                        (!newFilters.priceMax || boat.pricePerDay <= parseInt(newFilters.priceMax)) &&
+                        (!newFilters.lengthMin || parseFloat(boat.length) >= parseFloat(newFilters.lengthMin)) &&
+                        (!newFilters.lengthMax || parseFloat(boat.length) <= parseFloat(newFilters.lengthMax)) &&
+                        (!newFilters.model || boat.model.toLowerCase().includes(newFilters.model.toLowerCase())) &&
+                        (!newFilters.year || boat.year === parseInt(newFilters.year))
+                    );
+                });
+
+                setFilteredBoats(result);
+            };
+
+            const resetFilters = () => {
+                setFilters({
+                    name: '',
+                    location: '',
+                    capacity: '',
+                    captain: '',
+                    priceMin: '',
+                    priceMax: '',
+                    lengthMin: '',
+                    lengthMax: '',
+                    model: '',
+                    year: ''
+                });
+                setFilteredBoats(boats);
+            };
+
+            return (
+                <div className="filter-container">
+                    {/* Filters */}
+                    <div className="filters-section">
+                        <div className="filters-grid">
+                            {/* Name filter */}
+                            <div className="filter-item">
+                                <label>Boat Name</label>
+                                <input
+                                    type="text"
+                                    value={filters.name}
+                                    onChange={(e) => handleFilterChange('name', e.target.value)}
+                                    placeholder="Search by name"
+                                />
+                            </div>
+
+                            {/* Location filter */}
+                            <div className="filter-item">
+                                <label>Location</label>
+                                <select
+                                    value={filters.location}
+                                    onChange={(e) => handleFilterChange('location', e.target.value)}
+                                >
+                                    <option value="">All locations</option>
+                                    {getUniqueValues('location').map(location => (
+                                        <option key={location} value={location}>{location}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Capacity filter */}
+                            <div className="filter-item">
+                                <label>Capacity</label>
+                                <select
+                                    value={filters.capacity}
+                                    onChange={(e) => handleFilterChange('capacity', e.target.value)}
+                                >
+                                    <option value="">Any capacity</option>
+                                    {getUniqueValues('capacity').map(cap => (
+                                        <option key={cap} value={cap}>{cap} persons</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Captain filter */}
+                            <div className="filter-item">
+                                <label>Captain</label>
+                                <select
+                                    value={filters.captain}
+                                    onChange={(e) => handleFilterChange('captain', e.target.value)}
+                                >
+                                    <option value="">Any</option>
+                                    <option value="y">With captain</option>
+                                    <option value="n">Without captain</option>
+                                </select>
+                            </div>
+
+                            {/* Price range */}
+                            <div className="filter-item">
+                                <label>Price per day (€)</label>
+                                <div className="range-inputs">
+                                    <input
+                                        type="number"
+                                        value={filters.priceMin}
+                                        onChange={(e) => handleFilterChange('priceMin', e.target.value)}
+                                        placeholder="Min"
+                                    />
+                                    <input
+                                        type="number"
+                                        value={filters.priceMax}
+                                        onChange={(e) => handleFilterChange('priceMax', e.target.value)}
+                                        placeholder="Max"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Length range */}
+                            <div className="filter-item">
+                                <label>Length (m)</label>
+                                <div className="range-inputs">
+                                    <input
+                                        type="number"
+                                        value={filters.lengthMin}
+                                        onChange={(e) => handleFilterChange('lengthMin', e.target.value)}
+                                        placeholder="Min"
+                                        step="0.1"
+                                    />
+                                    <input
+                                        type="number"
+                                        value={filters.lengthMax}
+                                        onChange={(e) => handleFilterChange('lengthMax', e.target.value)}
+                                        placeholder="Max"
+                                        step="0.1"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Model filter */}
+                            <div className="filter-item">
+                                <label>Model</label>
+                                <input
+                                    type="text"
+                                    value={filters.model}
+                                    onChange={(e) => handleFilterChange('model', e.target.value)}
+                                    placeholder="Search by model"
+                                />
+                            </div>
+
+                            {/* Year filter */}
+                            <div className="filter-item">
+                                <label>Year</label>
+                                <select
+                                    value={filters.year}
+                                    onChange={(e) => handleFilterChange('year', e.target.value)}
+                                >
+                                    <option value="">Any year</option>
+                                    {getUniqueValues('year').map(year => (
+                                        <option key={year} value={year}>{year}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        {/* Reset button */}
+                        <div className="reset-button-container">
+                            <button onClick={resetFilters} className="reset-button">
+                                Reset Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Boats grid */}
+                    <div id="boats-grid">
+                        {filteredBoats.map((boat) => (
+                            <div key={boat.id} className="boat-card">
+                                <img
+                                    src={`boatImage/${boat.image}`}
+                                    alt={boat.name}
+                                    onError={(e) => { e.target.src = 'placeholder.jpg' }}
+                                />
+                                <div className="boat-card-content">
+                                    <h3>{boat.name}</h3>
+                                    <p>{boat.model}</p>
+                                    <div className="boat-info">
+                                        <div>
+                                            <span>Capacity</span>
+                                            <strong>{boat.capacity} persons</strong>
+                                        </div>
+                                        <div>
+                                            <span>Length</span>
+                                            <strong>{boat.length}m</strong>
+                                        </div>
+                                        <div>
+                                            <span>Price per day</span>
+                                            <strong>€{boat.pricePerDay}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // Mount the React component
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<FilteredBoats />);
+    </script>
+</body>
+</html>
