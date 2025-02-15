@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boatify</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -35,8 +36,30 @@
                     <option value="Primošten">Primošten</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="date-range">When are you sailing?</label>
+                <input type="text" id="date-range" name="date-range" class="date-input" placeholder="Select your dates">
+            </div>
             <button type="button" class="set-sail-btn">Set Sail</button>
         </form>
+        <div class="footer">
+            <div class="contact-section">
+                <p class="contact-text">Want to cut to the chase and chat with an expert?</p>
+                <div class="contact-input-wrapper">
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="phone-input">
+                    <button type="button" class="contact-btn">Call me</button>
+                </div>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">About us</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">T&C</a>
+            </div>
+        </div>
     </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="func.js"></script>
 </body>
 </html>
