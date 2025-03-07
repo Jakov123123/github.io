@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boatify - Available Boats</title>
+    <link rel="stylesheet" href="boats.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo-container">
+                <img src="./LOGO.png" alt="Boatify Logo" class="logo-image">
+            </a>
+            <h1>Available Boats</h1>
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="people-filter">People:</label>
+                    <select id="people-filter" name="people-filter">
+                        <option value="all">All</option>
+                        <option value="1-4">1-4 people</option>
+                        <option value="4-8">4-8 people</option>
+                        <option value="8-12">8-12 people</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="location-filter">Location:</label>
+                    <select id="location-filter" name="location-filter">
+                        <option value="All">All</option>
+                        <option value="Dubrovnik">Dubrovnik</option>
+                        <option value="Split">Split</option>
+                        <option value="Zadar">Zadar</option>
+                        <option value="Šibenik">Šibenik</option>
+                        <option value="Pula">Pula</option>
+                        <option value="Rijeka">Rijeka</option>
+                        <option value="Trogir">Trogir</option>
+                        <option value="Primošten">Primošten</option>
+                    </select>
+                </div>
+                <div class="filter-group date-range-container">
+                    <label for="date-range-filter">Dates:</label>
+                    <input type="text" id="date-range-filter" name="date-range-filter" class="date-input" readonly>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="boats-container" id="boats-list">
+            <!-- Boat cards will be dynamically inserted here -->
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="contact-section">
+                <p class="contact-text">Want to cut to the chase and chat with an expert?</p>
+                <div class="contact-input-wrapper">
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="phone-input">
+                    <button type="button" class="contact-btn">Call me</button>
+                </div>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">About us</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">T&C</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="boats-data.js"></script>
+    <script src="boats.js"></script>
+</body>
+</html>
