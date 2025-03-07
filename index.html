@@ -6,57 +6,212 @@
     <title>Boatify</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="transitions.css">
 </head>
 <body>
-    <div class="left-side"></div>
-    <div class="right-side">
-        <img src="./LOGO.png" alt="Boatify Logo" class="logo-image">
-        <h1 class="slogan">Set Sail With Boatify</h1>
-        <form class="search-form">
-            <div class="form-group">
-                <label for="people">How many are coming with you?</label>
-                <select id="people" name="people">
-                    <option value="1-4">1-4 people</option>
-                    <option value="4-8">4-8 people</option>
-                    <option value="8-12">8-12 people</option>
-                    <option value="12+">12+ people</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="city">Which marina are you heading to?</label>
-                <select id="city" name="city">
-                    <option value="All">All</option>
-                    <option value="Dubrovnik">Dubrovnik</option>
-                    <option value="Split">Split</option>
-                    <option value="Zadar">Zadar</option>
-                    <option value="Šibenik">Šibenik</option>
-                    <option value="Pula">Pula</option>
-                    <option value="Rijeka">Rijeka</option>
-                    <option value="Trogir">Trogir</option>
-                    <option value="Primošten">Primošten</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="date-range">When are you sailing?</label>
-                <input type="text" id="date-range" name="date-range" class="date-input" placeholder="Select your dates">
-            </div>
-            <button type="button" class="set-sail-btn">Set Sail</button>
-        </form>
-        <div class="footer">
-            <div class="contact-section">
-                <p class="contact-text">Want to cut to the chase and chat with an expert?</p>
-                <div class="contact-input-wrapper">
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="phone-input">
-                    <button type="button" class="contact-btn">Call me</button>
-                </div>
-            </div>
-            <div class="footer-links">
-                <a href="#" class="footer-link">About us</a>
-                <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">T&C</a>
+    <div class="page-transition"></div>
+    <!-- Header -->
+    <!-- Main content wrapper -->
+    <div class="main-content">
+        <!-- Integrated header that overlays the hero section -->
+        <div class="integrated-header">
+            <div class="header-container">
+                <nav class="header-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="index.html" class="nav-link active">Sail</a></li>
+                        <li class="nav-item"><a href="experiences.html" class="nav-link">Experiences</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
+        
+        <section class="hero-section">
+            <div class="left-side"></div>
+            <div class="right-side">
+                <img src="./LOGO.png" alt="Boatify Logo" class="logo-image">
+                <h1 class="slogan">Set Sail With Boatify</h1>
+                <form class="search-form">
+                    <div class="form-group">
+                        <select id="people" name="people">
+                            <option value="" disabled selected hidden>How many are coming with you?</option>
+                            <option value="1-4">1-4 people</option>
+                            <option value="4-8">4-8 people</option>
+                            <option value="8-12">8-12 people</option>
+                            <option value="12+">12+ people</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-dropdown">
+                            <div class="dropdown-toggle">
+                                <span class="placeholder">Which marinas are you heading to?</span>
+                            </div>
+                            <div class="dropdown-menu">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-all" name="city" value="All" class="city-checkbox">
+                                    <label for="city-all">All</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-dubrovnik" name="city" value="Dubrovnik" class="city-checkbox">
+                                    <label for="city-dubrovnik">Dubrovnik</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-split" name="city" value="Split" class="city-checkbox">
+                                    <label for="city-split">Split</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-zadar" name="city" value="Zadar" class="city-checkbox">
+                                    <label for="city-zadar">Zadar</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-sibenik" name="city" value="Šibenik" class="city-checkbox">
+                                    <label for="city-sibenik">Šibenik</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-pula" name="city" value="Pula" class="city-checkbox">
+                                    <label for="city-pula">Pula</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-rijeka" name="city" value="Rijeka" class="city-checkbox">
+                                    <label for="city-rijeka">Rijeka</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-trogir" name="city" value="Trogir" class="city-checkbox">
+                                    <label for="city-trogir">Trogir</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="city-primosten" name="city" value="Primošten" class="city-checkbox">
+                                    <label for="city-primosten">Primošten</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="date-range" name="date-range" class="date-input" placeholder="When are you sailing?">
+                    </div>
+                    <button type="button" class="set-sail-btn">Set Sail</button>
+                </form>
+                <div class="scroll-indicator">
+                    <span>Scroll for more</span>
+                    <div class="scroll-arrow">↓</div>
+                </div>
+            </div>
+        </section>
+        <div class="section-dots">
+            <div class="dot active" data-section="hero-section"></div>
+            <div class="dot" data-section="featured-boat-section"></div>
+            <div class="dot" data-section="about-us-section"></div>
+            <div class="dot" data-section="contact-section"></div>
+        </div>
+        
+        <!-- Featured Boat Section -->
+        <section class="featured-boat-section">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">Featured Boat</h2>
+                <div class="featured-boat-content">
+                    <div class="featured-boat-image fade-in-right">
+                        <img src="./featured-boat.jpg" alt="Featured Boat" class="promo-image">
+                    </div>
+                    <div class="featured-boat-info fade-in-left">
+                        <h3 class="fade-in-up delay-100">Oceanis 45 - Premium Sailing Experience</h3>
+                        <p class="boat-description fade-in-up delay-200">Experience the ultimate in comfort and performance with our premium sailing yacht. Perfect for families or groups up to 8 people.</p>
+                        <ul class="boat-features fade-in-up delay-300">
+                            <li>4 cabins, 2 bathrooms</li>
+                            <li>Full kitchen amenities</li>
+                            <li>Spacious sundeck</li>
+                            <li>Modern navigation equipment</li>
+                        </ul>
+                        <button class="cta-button fade-in-up delay-400">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="section-dots">
+            <div class="dot" data-section="hero-section"></div>
+            <div class="dot" data-section="featured-boat-section"></div>
+            <div class="dot" data-section="about-us-section"></div>
+            <div class="dot" data-section="contact-section"></div>
+        </div>
+        
+        <!-- About Us Section -->
+        <section class="about-us-section">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">About Us</h2>
+                <div class="about-us-content">
+                    <div class="about-us-text fade-in-right">
+                        <p class="fade-in-up delay-100">Boatify is a premier boat rental platform connecting boat owners with sailing enthusiasts across the beautiful Croatian coast.</p>
+                        <p class="fade-in-up delay-200">Founded in 2018 by a team of passionate sailors, we've grown to become the most trusted name in Croatian maritime tourism, offering over 500 boats across 9 major marinas.</p>
+                        <p class="fade-in-up delay-300">Our mission is simple: make boating accessible to everyone while ensuring the highest standards of safety, comfort, and customer service.</p>
+                        <button class="cta-button fade-in-up delay-400">Learn More</button>
+                    </div>
+                    <div class="about-us-image fade-in-left">
+                        <img src="./aboutUs.jpeg" alt="About Us" class="about-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="section-dots">
+            <div class="dot" data-section="hero-section"></div>
+            <div class="dot" data-section="featured-boat-section"></div>
+            <div class="dot" data-section="about-us-section"></div>
+            <div class="dot" data-section="contact-section"></div>
+        </div>
+        
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">Contact Us</h2>
+                <div class="contact-content">
+                    <div class="contact-form fade-in-right">
+                        <form>
+                            <div class="form-group fade-in-up delay-100">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group fade-in-up delay-200">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email">
+                            </div>
+                            <div class="form-group fade-in-up delay-300">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button type="button" class="cta-button fade-in-up delay-400">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="contact-info fade-in-left">
+                        <h3 class="fade-in-up">Get in Touch</h3>
+                        <p class="fade-in-up delay-100"><strong>Phone:</strong> +385 21 123 456</p>
+                        <p class="fade-in-up delay-200"><strong>Email:</strong> info@boatify.com</p>
+                        <p class="fade-in-up delay-300"><strong>Head Office:</strong> Marina Split, Croatia</p>
+                        <p class="fade-in-up delay-400">For immediate assistance, our team is available 7 days a week from 8:00 to 20:00 local time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="section-dots">
+            <div class="dot" data-section="hero-section"></div>
+            <div class="dot" data-section="featured-boat-section"></div>
+            <div class="dot" data-section="about-us-section"></div>
+            <div class="dot" data-section="contact-section"></div>
+        </div>
     </div>
+    
+    <!-- Sticky Footer -->
+    <footer class="site-footer">
+        <div class="contact-section">
+            <p class="contact-text">Want to cut to the chase and chat with an expert?</p>
+            <div class="contact-input-wrapper">
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="phone-input">
+                <button type="button" class="contact-btn">Call me</button>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="#about-us-section" class="footer-link">About us</a>
+            <a href="#contact-section" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">T&C</a>
+        </div>
+    </footer>
+    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
