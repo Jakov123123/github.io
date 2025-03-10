@@ -12,8 +12,18 @@ $(function() {
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const peopleParam = urlParams.get('people');
-    const citiesParam = urlParams.get('cities'); // Changed from cityParam to citiesParam
+    const citiesParam = urlParams.get('cities');
     const dateRangeParam = urlParams.get('date-range');
+    
+    // Get advanced filter params
+    const captainParam = urlParams.get('captain');
+    const minLengthParam = urlParams.get('minLength');
+    const maxLengthParam = urlParams.get('maxLength');
+    const minPriceParam = urlParams.get('minPrice');
+    const maxPriceParam = urlParams.get('maxPrice');
+    const minYearParam = urlParams.get('minYear');
+    const maxYearParam = urlParams.get('maxYear');
+    const modelParam = urlParams.get('model');
 
     // Set filter values based on URL parameters
     if (peopleParam) {
@@ -46,17 +56,79 @@ $(function() {
     if (dateRangeParam) {
         $('#date-range-filter').val(dateRangeParam);
     }
+    
+    // Set advanced filter values if present in URL
+    if (captainParam) {
+        $('#captain-filter').val(captainParam);
+    }
+    
+    if (minLengthParam) {
+        $('#min-length').val(minLengthParam);
+    }
+    
+    if (maxLengthParam) {
+        $('#max-length').val(maxLengthParam);
+    }
+    
+    if (minPriceParam) {
+        $('#min-price').val(minPriceParam);
+    }
+    
+    if (maxPriceParam) {
+        $('#max-price').val(maxPriceParam);
+    }
+    
+    if (minYearParam) {
+        $('#min-year').val(minYearParam);
+    }
+    
+    if (maxYearParam) {
+        $('#max-year').val(maxYearParam);
+    }
+    
+    if (modelParam) {
+        $('#model-filter').val(modelParam);
+    }
+    
+    // Show advanced filters panel if any advanced filters are active
+    if (captainParam || minLengthParam || maxLengthParam || minPriceParam || 
+        maxPriceParam || minYearParam || maxYearParam || modelParam) {
+        $('#advanced-filters-panel').addClass('active');
+    }
 
     // Initially render boats with any URL filters applied
     renderBoats();
 
-    // Event listeners for filters
+    // Event listeners for basic filters
     $('#people-filter, #date-range-filter').on('change', function() {
         renderBoats();
+        updateURLWithFilters();
     });
     
     // For the multiselect city filter, we need a different event listener
     $(document).on('change', '.city-checkbox', function() {
+        renderBoats();
+        updateURLWithFilters();
+    });
+    
+    // Toggle advanced filters panel
+    $('#advanced-filter-btn').on('click', function() {
+        $('#advanced-filters-panel').toggleClass('active');
+    });
+    
+    // Apply advanced filters
+    $('#apply-advanced-filters').on('click', function() {
+        renderBoats();
+        updateURLWithFilters();
+    });
+    
+    // Reset advanced filters
+    $('#reset-advanced-filters').on('click', function() {
+        // Reset all advanced filter inputs
+        $('#captain-filter').val('all');
+        $('#min-length, #max-length, #min-price, #max-price, #min-year, #max-year').val('');
+        $('#model-filter').val('');
+        
         renderBoats();
         updateURLWithFilters();
     });
@@ -165,7 +237,7 @@ $(function() {
             e.stopPropagation();
         });
         
-        // City checkbox functionality - similar to func.js
+        // City checkbox functionality
         $('#city-all').on('change', function() {
             if($(this).is(':checked')) {
                 // If "All" is checked, uncheck all other city checkboxes
@@ -218,9 +290,10 @@ $(function() {
             $('.dropdown-toggle .placeholder').text(displayText);
         }
     }
-
+    
     // Function to render boat cards based on filters
     function renderBoats() {
+        // Basic filters
         const peopleFilter = $('#people-filter').val();
         
         // Process people filter range
@@ -243,6 +316,16 @@ $(function() {
         if (selectedCities.length === 0) {
             selectedCities = ['All'];
         }
+        
+        // Advanced filters
+        const captainFilter = $('#captain-filter').val();
+        const minLength = $('#min-length').val() ? parseFloat($('#min-length').val()) : 0;
+        const maxLength = $('#max-length').val() ? parseFloat($('#max-length').val()) : Infinity;
+        const minPrice = $('#min-price').val() ? parseFloat($('#min-price').val()) : 0;
+        const maxPrice = $('#max-price').val() ? parseFloat($('#max-price').val()) : Infinity;
+        const minYear = $('#min-year').val() ? parseInt($('#min-year').val()) : 0;
+        const maxYear = $('#max-year').val() ? parseInt($('#max-year').val()) : Infinity;
+        const modelFilter = $('#model-filter').val().toLowerCase();
 
         // Filter boats
         const filteredBoats = boatsData.filter(boat => {
@@ -252,7 +335,27 @@ $(function() {
             // Filter by location - match if "All" is selected or the boat's location is in the selectedCities array
             const locationMatch = selectedCities.includes('All') || selectedCities.includes(boat.location);
             
-            return capacityMatch && locationMatch;
+            // Filter by captain
+            let captainMatch = true;
+            if (captainFilter === 'yes') {
+                captainMatch = boat.captain === 'y';
+            } else if (captainFilter === 'no') {
+                captainMatch = boat.captain === 'n';
+            }
+            
+            // Filter by length
+            const lengthMatch = parseFloat(boat.length) >= minLength && parseFloat(boat.length) <= maxLength;
+            
+            // Filter by price
+            const priceMatch = boat.pricePerDay >= minPrice && boat.pricePerDay <= maxPrice;
+            
+            // Filter by year
+            const yearMatch = boat.year >= minYear && boat.year <= maxYear;
+            
+            // Filter by model
+            const modelMatch = !modelFilter || boat.model.toLowerCase().includes(modelFilter);
+            
+            return capacityMatch && locationMatch && captainMatch && lengthMatch && priceMatch && yearMatch && modelMatch;
         });
 
         // Render boats
@@ -316,7 +419,7 @@ $(function() {
             });
         }
     }
-
+    
     // Update URL with current filters
     function updateURLWithFilters() {
         const peopleFilter = $('#people-filter').val();
@@ -328,8 +431,19 @@ $(function() {
             selectedCities.push($(this).val());
         });
         
+        // Get advanced filter values
+        const captainFilter = $('#captain-filter').val();
+        const minLength = $('#min-length').val();
+        const maxLength = $('#max-length').val();
+        const minPrice = $('#min-price').val();
+        const maxPrice = $('#max-price').val();
+        const minYear = $('#min-year').val();
+        const maxYear = $('#max-year').val();
+        const modelFilter = $('#model-filter').val();
+        
         const url = new URL(window.location);
         
+        // Set or remove basic filter params
         if (peopleFilter !== 'all') {
             url.searchParams.set('people', peopleFilter);
         } else {
@@ -349,13 +463,55 @@ $(function() {
             url.searchParams.delete('date-range');
         }
         
+        // Set or remove advanced filter params
+        if (captainFilter !== 'all') {
+            url.searchParams.set('captain', captainFilter);
+        } else {
+            url.searchParams.delete('captain');
+        }
+        
+        if (minLength) {
+            url.searchParams.set('minLength', minLength);
+        } else {
+            url.searchParams.delete('minLength');
+        }
+        
+        if (maxLength) {
+            url.searchParams.set('maxLength', maxLength);
+        } else {
+            url.searchParams.delete('maxLength');
+        }
+        
+        if (minPrice) {
+            url.searchParams.set('minPrice', minPrice);
+        } else {
+            url.searchParams.delete('minPrice');
+        }
+        
+        if (maxPrice) {
+            url.searchParams.set('maxPrice', maxPrice);
+        } else {
+            url.searchParams.delete('maxPrice');
+        }
+        
+        if (minYear) {
+            url.searchParams.set('minYear', minYear);
+        } else {
+            url.searchParams.delete('minYear');
+        }
+        
+        if (maxYear) {
+            url.searchParams.set('maxYear', maxYear);
+        } else {
+            url.searchParams.delete('maxYear');
+        }
+        
+        if (modelFilter) {
+            url.searchParams.set('model', modelFilter);
+        } else {
+            url.searchParams.delete('model');
+        }
+        
         window.history.replaceState({}, '', url);
     }
-    
-    // This is now handled at the beginning of the script
-    
-    // Update URL when filters change
-    $('#people-filter, #date-range-filter').on('change', function() {
-        updateURLWithFilters();
-    });
 });

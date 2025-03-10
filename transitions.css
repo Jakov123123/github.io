@@ -48,19 +48,26 @@
     transform: translateX(0);
 }
 
-/* Animation delays for staggered entrance */
-.delay-100 {
-    transition-delay: 0.1s;
+/* Simplified transition styles that prevent flashing */
+body {
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
-.delay-200 {
-    transition-delay: 0.2s;
+/* Force hardware acceleration for smoother transitions */
+body {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
-.delay-300 {
-    transition-delay: 0.3s;
-}
-
-.delay-400 {
-    transition-delay: 0.4s;
+/* Optional: prevent scroll during transition */
+body.transitioning {
+    overflow: hidden;
 }

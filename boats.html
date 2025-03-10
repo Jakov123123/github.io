@@ -8,11 +8,21 @@
 </head>
 <body>
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo-container">
+        <div class="nav-container">
+            <div class="logo-container">
                 <img src="./LOGO.png" alt="Boatify Logo" class="logo-image">
-            </a>
-            <h1>Available Boats</h1>
+            </div>
+            <h1 class="header-title">Available Boats</h1>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about-us" class="nav-link">About Us</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="header-container">
             <div class="filter-container">
                 <div class="filter-group">
                     <label for="people-filter">People:</label>
@@ -40,6 +50,62 @@
                 <div class="filter-group date-range-container">
                     <label for="date-range-filter">Dates:</label>
                     <input type="text" id="date-range-filter" name="date-range-filter" class="date-input" readonly>
+                </div>
+                <div class="advanced-filter-toggle">
+                    <button id="advanced-filter-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="filter-icon">
+                            <path fill="#004aad" d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39c.51-.66.04-1.61-.79-1.61H5.04c-.83 0-1.3.95-.79 1.61z"/>
+                        </svg>
+                        Advanced Filters
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Advanced Filters Panel -->
+            <div class="advanced-filters-panel" id="advanced-filters-panel">
+                <div class="advanced-filters-row">
+                    <div class="filter-group">
+                        <label for="captain-filter">Captain:</label>
+                        <select id="captain-filter" name="captain-filter">
+                            <option value="all">All</option>
+                            <option value="yes">With Captain</option>
+                            <option value="no">Without Captain</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="length-filter">Length:</label>
+                        <div class="range-filter">
+                            <input type="number" id="min-length" name="min-length" placeholder="Min (m)" min="0" max="30">
+                            <span>to</span>
+                            <input type="number" id="max-length" name="max-length" placeholder="Max (m)" min="0" max="30">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="price-filter">Price Range:</label>
+                        <div class="range-filter">
+                            <input type="number" id="min-price" name="min-price" placeholder="Min (€)" min="0">
+                            <span>to</span>
+                            <input type="number" id="max-price" name="max-price" placeholder="Max (€)" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="advanced-filters-row">
+                    <div class="filter-group">
+                        <label for="year-filter">Year:</label>
+                        <div class="range-filter">
+                            <input type="number" id="min-year" name="min-year" placeholder="Min" min="1990" max="2025">
+                            <span>to</span>
+                            <input type="number" id="max-year" name="max-year" placeholder="Max" min="1990" max="2025">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="model-filter">Model Name:</label>
+                        <input type="text" id="model-filter" name="model-filter" placeholder="Search model...">
+                    </div>
+                    <div class="filter-actions">
+                        <button id="apply-advanced-filters" class="filter-action-btn apply">Apply Filters</button>
+                        <button id="reset-advanced-filters" class="filter-action-btn reset">Reset</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,5 +140,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="boats-data.js"></script>
     <script src="boats.js"></script>
+    <script src="smooth-scroll.js"></script>
 </body>
 </html>
