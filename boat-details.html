@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boatify - Boat Details</title>
+    <link rel="stylesheet" href="boats.css">
+    <link rel="stylesheet" href="boat-details.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
+<body>
+    <!-- Header from boats.html (without the Available Boats text) -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="./LOGO.png" alt="Boatify Logo" class="logo-image">
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about-us" class="nav-link">About Us</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Top section with images and basic info -->
+        <div class="boat-details-container">
+            <!-- Left side: main image + thumbnails -->
+            <div class="boat-images-section">
+                <!-- Main Image -->
+                <div class="main-image-container">
+                    <img id="mainImage" class="main-image" alt="Boat main image">
+                </div>
+
+                <!-- Thumbnails below main image -->
+                <div class="thumbnails-container" id="thumbnails">
+                    <!-- Thumbnails are injected by boat-details.js -->
+                </div>
+            </div>
+
+            <!-- Right side: basic boat info -->
+            <div class="boat-info-basic" id="boat-info-basic">
+                <!-- Basic info like name, model, specs injected by boat-details.js -->
+            </div>
+        </div>
+        
+        <!-- Bottom section with detailed info -->
+        <div class="boat-details-extended" id="boat-info-extended">
+            <!-- Extended details injected by boat-details.js -->
+        </div>
+    </main>
+
+    <!-- Sticky Footer from index.html -->
+    <footer class="site-footer">
+        <div class="contact-section">
+            <p class="contact-text">Want to cut to the chase and chat with an expert?</p>
+            <div class="contact-input-wrapper">
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="phone-input">
+                <button type="button" class="contact-btn">Call me</button>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="index.html#about-us" class="footer-link">About us</a>
+            <a href="index.html#contact" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">T&C</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="boats-data.js"></script>
+    <script src="boat-details.js"></script>
+</body>
+</html>
