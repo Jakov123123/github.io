@@ -387,4 +387,5 @@ $(function() {
             isScrolling = false;
         }, 800); // Same as the animation duration
     });
+
 });

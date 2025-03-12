@@ -9,6 +9,9 @@ $(function() {
         }
     });
 
+    // Create the sidebar for advanced filters
+    createSidebar();
+
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const peopleParam = urlParams.get('people');
@@ -90,10 +93,11 @@ $(function() {
         $('#model-filter').val(modelParam);
     }
     
-    // Show advanced filters panel if any advanced filters are active
+    // Show sidebar if any advanced filters are active
     if (captainParam || minLengthParam || maxLengthParam || minPriceParam || 
         maxPriceParam || minYearParam || maxYearParam || modelParam) {
-        $('#advanced-filters-panel').addClass('active');
+        $('.sidebar').addClass('active');
+        adjustMainContentMargin();
     }
 
     // Initially render boats with any URL filters applied
@@ -111,9 +115,10 @@ $(function() {
         updateURLWithFilters();
     });
     
-    // Toggle advanced filters panel
+    // Toggle advanced filters sidebar
     $('#advanced-filter-btn').on('click', function() {
-        $('#advanced-filters-panel').toggleClass('active');
+        $('.sidebar').toggleClass('active');
+        adjustMainContentMargin();
     });
     
     // Apply advanced filters
@@ -132,6 +137,64 @@ $(function() {
         renderBoats();
         updateURLWithFilters();
     });
+
+    // Function to adjust main content margin based on sidebar width
+    function adjustMainContentMargin() {
+        // No need to add margin, the flex layout handles it
+    }
+
+    // Function to create a sidebar for advanced filters
+    function createSidebar() {
+        // Create sidebar HTML
+        const sidebarHTML = `
+            <div class="sidebar">
+                <h3>Advanced Filters</h3>
+                <div class="filter-group">
+                    <label for="captain-filter">Captain:</label>
+                    <select id="captain-filter" name="captain-filter">
+                        <option value="all">All</option>
+                        <option value="yes">With Captain</option>
+                        <option value="no">Without Captain</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="length-filter">Length:</label>
+                    <div class="range-filter">
+                        <input type="number" id="min-length" name="min-length" placeholder="Min (m)" min="0" max="30">
+                        <span>to</span>
+                        <input type="number" id="max-length" name="max-length" placeholder="Max (m)" min="0" max="30">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="price-filter">Price Range:</label>
+                    <div class="range-filter">
+                        <input type="number" id="min-price" name="min-price" placeholder="Min (€)" min="0">
+                        <span>to</span>
+                        <input type="number" id="max-price" name="max-price" placeholder="Max (€)" min="0">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="year-filter">Year:</label>
+                    <div class="range-filter">
+                        <input type="number" id="min-year" name="min-year" placeholder="Min" min="1990" max="2025">
+                        <span>to</span>
+                        <input type="number" id="max-year" name="max-year" placeholder="Max" min="1990" max="2025">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="model-filter">Model Name:</label>
+                    <input type="text" id="model-filter" name="model-filter" placeholder="Search model...">
+                </div>
+                <div class="filter-actions">
+                    <button id="apply-advanced-filters" class="filter-action-btn apply">Apply Filters</button>
+                    <button id="reset-advanced-filters" class="filter-action-btn reset">Reset</button>
+                </div>
+            </div>
+        `;
+        
+        // Insert the sidebar before the boats container
+        $('main').prepend(sidebarHTML);
+    }
 
     // Function to create a multi-select dropdown for cities
     function createMultiSelectCity(selectedCities = []) {
@@ -327,7 +390,7 @@ $(function() {
         const maxYear = $('#max-year').val() ? parseInt($('#max-year').val()) : Infinity;
         const modelFilter = $('#model-filter').val().toLowerCase();
 
-        // Filter boats
+        // Filter boats - assuming boatsData is globally defined elsewhere
         const filteredBoats = boatsData.filter(boat => {
             // Filter by capacity
             const capacityMatch = boat.capacity >= minPeople && boat.capacity <= maxPeople;
@@ -410,7 +473,7 @@ $(function() {
                                 </div>
                             </div>
                             <div class="boat-price">€${boat.pricePerDay} per day</div>
-                            <a href="#" class="boat-button">Book Now</a>
+                            <a href="boat-details.html?id=${boat.id}" class="boat-button">Book Now</a>
                         </div>
                     </div>
                 `;
