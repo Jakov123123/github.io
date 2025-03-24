@@ -277,6 +277,8 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     width: 100%;
+    height: auto;
+    align-content: start;
 }
 
 .boat-card {
@@ -285,9 +287,10 @@ main {
     overflow: hidden;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
     display: flex;
     flex-direction: column;
+    height: auto; /* Allow height to be determined by content */
+    min-height: 400px; /* Set a minimum height to maintain consistency */
 }
 
 .boat-card:hover {
@@ -771,5 +774,64 @@ main {
 @media (max-width: 768px) {
     .boats-container {
         grid-template-columns: 1fr; /* 1 boat per row on small screens */
+    }
+}
+
+/* Responsive updates for boats.css */
+
+/* Medium screens (tablets) */
+@media (min-width: 768px) {
+    .boat-card {
+        min-height: 420px;
+    }
+    
+    .boat-image {
+        height: 240px;
+    }
+    
+    .boat-details {
+        padding: 18px;
+    }
+    
+    .boat-name {
+        font-size: 20px;
+    }
+    
+    .boat-specs {
+        margin-bottom: 30px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .boat-card {
+        min-height: 450px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .boat-image {
+        height: 260px;
+    }
+    
+    .boat-details {
+        padding: 22px;
+    }
+    
+    .boat-name {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+    
+    .boat-specs {
+        gap: 12px;
+    }
+    
+    .boat-price {
+        font-size: 20px;
+    }
+    
+    .boat-button {
+        padding: 14px;
+        font-size: 16px;
     }
 }

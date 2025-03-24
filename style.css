@@ -137,9 +137,9 @@ section {
 
 /* Vertical navigation dots */
 .section-dots {
-    position: fixed;
+    position: fixed; /* Changed from fixed to absolute */
     right: 30px;
-    top: 50%;
+    top: 50%; /* This will position dots at the middle of each section */
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
@@ -826,3 +826,122 @@ input#date-range::placeholder {
     color: #37474f;
     opacity: 1;
 }
+
+/* Add these media queries to the end of your style.css file */
+
+/* Medium screens (tablets and small desktops) */
+@media (min-width: 768px) {
+    /* Featured Boat Section */
+    .featured-boat-content {
+        flex-direction: row;
+        min-height: 350px;
+    }
+    
+    .featured-boat-image {
+        flex: 1;
+        height: auto;
+    }
+    
+    .featured-boat-info {
+        flex: 1;
+        padding: 28px;
+    }
+    
+    /* About Us Section */
+    .about-us-content {
+        flex-direction: row;
+        min-height: 350px;
+    }
+    
+    .about-us-text {
+        padding: 28px;
+    }
+    
+    /* Contact Section */
+    .contact-content {
+        flex-direction: row;
+    }
+    
+    .contact-form, .contact-info {
+        padding: 28px;
+    }
+}
+
+/* Large screens (desktops and larger) */
+@media (min-width: 1024px) {
+    /* Featured Boat Section */
+    .featured-boat-content {
+        min-height: 400px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .featured-boat-image {
+        height: 400px;
+    }
+    
+    .featured-boat-info {
+        padding: 32px;
+    }
+    
+    .featured-boat-info h3 {
+        font-size: 24px;
+    }
+    
+    /* About Us Section */
+    .about-us-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        gap: 30px;
+    }
+    
+    .about-us-text {
+        padding: 32px;
+    }
+    
+    .about-us-image {
+        height: 350px;
+    }
+    
+    /* Contact Section */
+    .contact-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        gap: 30px;
+    }
+    
+    .contact-form, .contact-info {
+        padding: 32px;
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+    .section-container {
+        max-width: 1200px;
+    }
+    
+    /* Featured Boat Section */
+    .featured-boat-content {
+        max-width: 1100px;
+    }
+    
+    .featured-boat-image {
+        height: 450px;
+    }
+    
+    /* About Us Section */
+    .about-us-content {
+        max-width: 1100px;
+    }
+    
+    .about-us-image {
+        height: 380px;
+    }
+    
+    /* Contact Section */
+    .contact-content {
+        max-width: 1100px;
+    }
+}
+

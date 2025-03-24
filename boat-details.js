@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     thumbnailsContainer.appendChild(thumb);
   });
 
-  // 4. Build up the split info sections
+  // 4. Build up the sections
   const boatInfoBasic = document.getElementById("boat-info-basic");
   const boatInfoExtended = document.getElementById("boat-info-extended");
   
@@ -88,7 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Prepare amenities if available
   const amenitiesHtml = generateAmenitiesSection(boat);
 
-  // Basic info (top right section)
+  // Add About section under the photo
+  document.querySelector('.boat-images-section').innerHTML += `
+    <div class="about-under-photo">
+      <h3 class="section-title">About This Boat</h3>
+      <p class="boat-description">${boat.description || 'Experience the ultimate sailing adventure with this exceptional vessel. Perfect for both beginners and experienced sailors alike.'}</p>
+    </div>
+  `;
+
+  // Basic info (right section) - with features
   boatInfoBasic.innerHTML = `
     <div class="boat-details-card">
       <h2 class="boat-name">
@@ -152,27 +160,15 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
 
-      <!-- Features list moved back to right side box -->
+      <!-- Features list in right side box -->
       <h3 class="section-title">Features</h3>
       ${featuresHtml}
 
       <!-- Price -->
       <div class="boat-price">€${boat.pricePerDay} per day</div>
-    </div>
-  `;
-  
-  // Extended info (bottom section spanning full width)
-  boatInfoExtended.innerHTML = `
-    <div class="boat-details-extended-content">
-      <h3 class="section-title">About This Boat</h3>
-      <p class="boat-description">${boat.description || 'Experience the ultimate sailing adventure with this exceptional vessel. Perfect for both beginners and experienced sailors alike.'}</p>
       
-      <!-- Amenities section if available -->
-      ${amenitiesHtml}
-      
-      <!-- Booking section -->
+      <!-- Booking section directly in the main info card -->
       <div class="booking-section">
-        <h3 class="section-title">Book Your Sailing Adventure</h3>
         <div class="date-selection">
           <label for="booking-dates">Select Dates:</label>
           <input type="text" id="booking-dates" class="date-input" placeholder="Choose your sailing dates">
@@ -181,6 +177,19 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     </div>
   `;
+  
+  // Extended info (bottom section) - Only showing amenities if available, removing About This Boat
+  if (boat.amenities && boat.amenities.length > 0) {
+    boatInfoExtended.innerHTML = `
+      <div class="boat-details-extended-content">
+        <!-- Amenities section if available -->
+        ${amenitiesHtml}
+      </div>
+    `;
+  } else {
+    // Hide the extended section completely if no amenities
+    boatInfoExtended.style.display = 'none';
+  }
 
   // Initialize date picker for booking
   initDatePicker();
@@ -354,8 +363,8 @@ style.textContent = `
   }
   
   .booking-section {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 15px;
+    padding-top: 15px;
     border-top: 1px solid #eee;
   }
   
@@ -377,6 +386,11 @@ style.textContent = `
     border-radius: 4px;
     font-size: 14px;
     margin-bottom: 15px;
+  }
+  
+  .boat-button {
+    width: 100%;
+    text-align: center;
   }
 `;
 document.head.appendChild(style);

@@ -864,3 +864,85 @@ select option:disabled,
     font-size: 14px;
     height: auto;
 }
+
+/* Responsive updates for styleExperiences.css */
+
+/* Medium screens (tablets) */
+@media (min-width: 768px) {
+    .featured-boat-content {
+        flex-direction: row;
+        min-height: 350px;
+    }
+    
+    .featured-boat-image {
+        flex: 1;
+        height: auto;
+    }
+    
+    .featured-boat-info {
+        flex: 1;
+        padding: 28px;
+    }
+    
+    .about-us-content {
+        flex-direction: row;
+        min-height: 350px;
+    }
+    
+    .about-us-text {
+        padding: 28px;
+    }
+    
+    .contact-content {
+        flex-direction: row;
+    }
+    
+    .contact-form, .contact-info {
+        padding: 28px;
+    }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 1024px) {
+    .featured-boat-content {
+        min-height: 400px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .featured-boat-image {
+        height: 400px;
+    }
+    
+    .featured-boat-info {
+        padding: 32px;
+    }
+    
+    .featured-boat-info h3 {
+        font-size: 24px;
+    }
+    
+    .about-us-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        gap: 30px;
+    }
+    
+    .about-us-text {
+        padding: 32px;
+    }
+    
+    .about-us-image {
+        height: 350px;
+    }
+    
+    .contact-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        gap: 30px;
+    }
+    
+    .contact-form, .contact-info {
+        padding: 32px;
+    }
+}
